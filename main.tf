@@ -50,10 +50,14 @@ resource "google_storage_bucket" "default" {
 data "archive_file" "default" {
   type        = "zip"
   output_path = "/tmp/function-source.zip"
-  source_dir  = "src"
+  source_dir  = "."
 }
 
 resource "google_storage_bucket_object" "default" {
+  provisioner "local-exec" {
+    command = "npm run build"
+  }
+
   name   = "function-source.zip"
   bucket = google_storage_bucket.default.name
   source = data.archive_file.default.output_path # Path to the zipped function source code

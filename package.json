@@ -1,11 +1,19 @@
 {
+	"main": "dist/index.js",
 	"scripts": {
+		"build": "webpack",
+		"watch": "webpack -w",
 		"pretty": "prettier --write ."
 	},
 	"dependencies": {
 		"@google-cloud/functions-framework": "^3.3.0"
 	},
 	"devDependencies": {
-		"prettier": "^3.1.0"
+		"prettier": "^3.1.0",
+		"ts-loader": "^9.5.1",
+		"typescript": "^5.3.2",
+		"webpack": "^5.89.0",
+		"webpack-cli": "^5.1.4",
+		"webpack-node-externals": "^3.0.0"
 	}
 }
