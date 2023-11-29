@@ -32,3 +32,7 @@ terraform destroy
 - pubsub.topics.get
 - run.services.getIamPolicy
 - run.services.setIamPolicy
+- storage.buckets.get
+- storage.objects.create
+- storage.objects.delete
+- storage.objects.get
