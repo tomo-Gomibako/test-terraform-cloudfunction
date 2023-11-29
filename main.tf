@@ -140,3 +140,14 @@ resource "google_cloudfunctions2_function" "test-pubsub" {
     retry_policy   = "RETRY_POLICY_RETRY"
   }
 }
+
+resource "google_cloud_scheduler_job" "test-pubsub-scheduler" {
+  name        = "test-pubsub-scheduler"
+  description = "test cron job"
+  schedule    = "*/10 * * * *"
+
+  pubsub_target {
+    topic_name = google_pubsub_topic.default.id
+    data       = base64encode("World")
+  }
+}
