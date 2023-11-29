@@ -63,8 +63,46 @@ resource "google_storage_bucket_object" "default" {
   source = data.archive_file.default.output_path # Path to the zipped function source code
 }
 
-resource "google_cloudfunctions2_function" "default" {
-  name        = "function"
+resource "google_cloudfunctions2_function" "test-http" {
+  name        = "test-http"
+  location    = local.project_region
+  description = "a new function"
+
+  build_config {
+    runtime     = "nodejs20"
+    entry_point = "helloHttp" # Set the entry point
+    environment_variables = {
+      BUILD_CONFIG_TEST = "build_test"
+    }
+    source {
+      storage_source {
+        bucket = google_storage_bucket.default.name
+        object = google_storage_bucket_object.default.name
+      }
+    }
+  }
+
+  service_config {
+    max_instance_count = 1
+    min_instance_count = 0
+    available_memory   = "256M"
+    timeout_seconds    = 60
+  }
+}
+
+resource "google_cloud_run_service_iam_member" "member" {
+  location = google_cloudfunctions2_function.test-http.location
+  service  = google_cloudfunctions2_function.test-http.name
+  role     = "roles/run.invoker"
+  member   = "allUsers"
+}
+
+output "function_uri" {
+  value = google_cloudfunctions2_function.test-http.service_config[0].uri
+}
+
+resource "google_cloudfunctions2_function" "test-pubsub" {
+  name        = "test-pubsub"
   location    = local.project_region
   description = "a new function"
 
@@ -83,7 +121,7 @@ resource "google_cloudfunctions2_function" "default" {
   }
 
   service_config {
-    max_instance_count = 3
+    max_instance_count = 1
     min_instance_count = 1
     available_memory   = "256M"
     timeout_seconds    = 60

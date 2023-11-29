@@ -1,4 +1,10 @@
-import { CloudEvent, cloudEvent } from '@google-cloud/functions-framework'
+import { CloudEvent, cloudEvent, http } from '@google-cloud/functions-framework'
+
+http('helloHttp', (req, res) => {
+  const name = req.query.name?.toString()
+
+  res.send('Hello' + (name ? `, ${name}` : ''))
+})
 
 type PubSubEventData = {
   message: {
