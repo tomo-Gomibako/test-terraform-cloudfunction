@@ -145,6 +145,7 @@ resource "google_cloud_scheduler_job" "test-pubsub-scheduler" {
   name        = "test-pubsub-scheduler"
   description = "test cron job"
   schedule    = "*/10 * * * *"
+  time_zone   = "Asia/Tokyo"
 
   pubsub_target {
     topic_name = google_pubsub_topic.default.id
