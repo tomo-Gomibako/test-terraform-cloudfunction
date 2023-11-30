@@ -16,10 +16,11 @@ terraform destroy
 
 ## Required APIs
 
-- Identity and Access Management (IAM) API
-- Cloud Functions API
-- Eventarc API
-- Cloud Scheduler API
+- [Cloud Functions API](https://console.cloud.google.com/apis/api/cloudfunctions.googleapis.com)
+- [Cloud Run API](https://console.cloud.google.com/apis/api/run.googleapis.com)
+- [Cloud Scheduler API](https://console.cloud.google.com/apis/api/cloudscheduler.googleapis.com)
+- [Eventarc API](https://console.cloud.google.com/apis/api/eventarc.googleapis.com)
+- [Identity and Access Management (IAM) API](https://console.cloud.google.com/apis/api/iam.googleapis.com)
 
 ## Required Permissions
 
@@ -34,6 +35,7 @@ terraform destroy
 - cloudscheduler.jobs.get
 - cloudscheduler.jobs.update
 - iam.serviceAccounts.actAs
+- iam.serviceAccounts.delete
 - iam.serviceAccounts.get
 - pubsub.topics.get
 - run.services.getIamPolicy
