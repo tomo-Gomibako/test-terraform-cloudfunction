@@ -46,6 +46,17 @@ data "archive_file" "default" {
   type        = "zip"
   output_path = "/tmp/function-source.zip"
   source_dir  = "."
+  excludes = [
+    ".git",
+    ".terraform",
+    "node_modules",
+    ".terraform.lock.hcl",
+    ".terraform.tfstate.lock.info",
+    "dev.env",
+    "pnpm-lock.yaml",
+    "terraform.tfstate",
+    "terraform.tfstate.backup"
+  ]
 }
 
 resource "google_storage_bucket_object" "default" {
